@@ -30,11 +30,11 @@
 
 ## Architecture
 
-采用模块化单体 Web，前后端边界清晰但首版不拆微服务。建议技术栈为 Next.js + TypeScript、PostgreSQL、Prisma/Drizzle、本地目录与 S3 兼容对象存储、Redis/BullMQ（或数据库任务表）和 Docker Compose。
+采用模块化单体 Web，前后端边界清晰但首版不拆微服务。建议技术栈为 Next.js + TypeScript、PostgreSQL、Prisma/Drizzle、七牛云 Kodo 与阿里云 OSS、Redis/BullMQ（或数据库任务表）和 Docker Compose。开发环境支持本地文件存储，生产环境通过统一 StorageProvider 适配七牛云或阿里云。
 
 核心模块边界为 Identity/Organization、Merchant、Store、Campaign、Product Plan、Content、Asset、Workflow、AI Runtime、Analytics 和 Audit。AI Runtime 统一处理 Provider、模型能力、幂等任务、状态、超时、重试、成本和错误；生产路径禁止静默伪成功。
 
-公开 API 应围绕商家、方案、内容、任务和适配器定义稳定契约。未来平台接入通过 PlatformAdapter 隔离，不让业务模块直接绑定抖音细节。
+公开 API 应围绕商家、方案、内容、任务和适配器定义稳定契约。StorageProvider 负责上传、下载、签名 URL、删除、元数据和对象迁移；凭证只在服务端保存，上传失败必须保留可重试状态。未来平台接入通过 PlatformAdapter 隔离，不让业务模块直接绑定抖音细节。
 
 ## Acceptance Scenarios
 
