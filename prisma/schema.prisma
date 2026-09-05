@@ -70,11 +70,19 @@ model ProductPlan {
   cost           Decimal?
   description    String?
   rules          String?
+  reviewStatus   ReviewStatus @default(DRAFT)
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   merchant       Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
 
   @@index([merchantId, createdAt])
+}
+
+enum ReviewStatus {
+  DRAFT
+  PENDING_REVIEW
+  APPROVED
+  REJECTED
 }
 
 enum ProjectStatus {

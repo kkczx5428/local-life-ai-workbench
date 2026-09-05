@@ -14,3 +14,7 @@ export async function generateProductPlans(merchantId: string) {
 export async function listProductPlans(merchantId: string) {
   return prisma.productPlan.findMany({ where: { merchantId }, orderBy: { createdAt: "desc" } });
 }
+
+export async function updateProductPlan(id: string, input: { name?: string; description?: string; rules?: string; reviewStatus?: "DRAFT" | "PENDING_REVIEW" | "APPROVED" | "REJECTED" }) {
+  return prisma.productPlan.update({ where: { id }, data: { name: input.name?.trim(), description: input.description?.trim(), rules: input.rules?.trim(), reviewStatus: input.reviewStatus } });
+}
