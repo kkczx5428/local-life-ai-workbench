@@ -9,3 +9,7 @@ export async function diagnoseMerchant(merchantId: string) {
   const diagnosis = await prisma.merchantDiagnosis.create({ data: { merchantId, version: (latest?.version || 0) + 1, result } });
   return { merchant, diagnosis };
 }
+
+export async function listMerchantDiagnoses(merchantId: string) {
+  return prisma.merchantDiagnosis.findMany({ where: { merchantId }, orderBy: { version: "desc" }, take: 10 });
+}
