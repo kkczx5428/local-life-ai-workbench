@@ -43,6 +43,7 @@ model Merchant {
   stores         Store[]
   projects       Project[]
   diagnoses      MerchantDiagnosis[]
+  productPlans   ProductPlan[]
 
   @@index([organizationId])
 }
@@ -56,6 +57,23 @@ model MerchantDiagnosis {
   merchant   Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
 
   @@unique([merchantId, version])
+  @@index([merchantId, createdAt])
+}
+
+model ProductPlan {
+  id             String   @id @default(cuid())
+  merchantId     String
+  name           String
+  type           String
+  originalPrice  Decimal?
+  dealPrice      Decimal?
+  cost           Decimal?
+  description    String?
+  rules          String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  merchant       Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+
   @@index([merchantId, createdAt])
 }
 
