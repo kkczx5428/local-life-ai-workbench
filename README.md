@@ -32,6 +32,8 @@ npm run dev
 
 打开 [http://localhost:3000](http://localhost:3000) 查看应用。
 
+导入商家资料：打开 `/imports/merchants`，上传 CSV 或 Excel 文件进行解析预览。
+
 ## 开发文档
 
 - [产品设计](docs/superpowers/specs/2026-09-05-local-life-ai-workbench-design.md)
