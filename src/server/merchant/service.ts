@@ -7,5 +7,5 @@ export async function createMerchant(input: { organizationId: string; name: stri
 }
 
 export async function listMerchants(organizationId: string) {
-  return prisma.merchant.findMany({ where: { organizationId }, include: { stores: true }, orderBy: { createdAt: "desc" } });
+  return prisma.merchant.findMany({ where: { organizationId }, include: { stores: true, projects: true }, orderBy: { createdAt: "desc" } });
 }

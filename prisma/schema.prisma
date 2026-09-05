@@ -41,8 +41,31 @@ model Merchant {
   updatedAt      DateTime     @updatedAt
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   stores         Store[]
+  projects       Project[]
 
   @@index([organizationId])
+}
+
+enum ProjectStatus {
+  PLANNING
+  ACTIVE
+  COMPLETED
+  ARCHIVED
+}
+
+model Project {
+  id          String        @id @default(cuid())
+  merchantId  String
+  name        String
+  description String?
+  status      ProjectStatus @default(PLANNING)
+  dueDate     DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  merchant    Merchant      @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+
+  @@index([merchantId])
+  @@index([status])
 }
 
 model Store {
