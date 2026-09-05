@@ -42,7 +42,7 @@ export default async function MerchantsPage() {
                 </div>
                 <StoreForm merchantId={merchant.id} />
                 <ProjectForm merchantId={merchant.id} />
-                {merchant.projects.length > 0 && <div className="mt-5 border-t border-slate-100 pt-5"><p className="text-xs font-medium text-slate-500">运营项目</p>{merchant.projects.map((project) => <div key={project.id} className="mt-2 flex items-center justify-between rounded-lg bg-violet-50 px-3 py-2 text-sm"><span>{project.name}</span><span className="text-xs text-violet-700">{project.status === "PLANNING" ? "规划中" : project.status === "ACTIVE" ? "进行中" : project.status === "COMPLETED" ? "已完成" : "已归档"}</span></div>)}</div>}
+                {merchant.projects.length > 0 && <div className="mt-5 border-t border-slate-100 pt-5"><p className="text-xs font-medium text-slate-500">运营项目</p>{merchant.projects.map((project) => <a href={`/projects/${project.id}`} key={project.id} className="mt-2 flex items-center justify-between rounded-lg bg-violet-50 px-3 py-2 text-sm hover:bg-violet-100"><span>{project.name}</span><span className="text-xs text-violet-700">查看详情 →</span></a>)}</div>}
               </article>
             ))}
           </div>

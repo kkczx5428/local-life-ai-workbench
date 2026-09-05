@@ -63,9 +63,30 @@ model Project {
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
   merchant    Merchant      @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+  tasks       Task[]
 
   @@index([merchantId])
   @@index([status])
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  DONE
+}
+
+model Task {
+  id          String     @id @default(cuid())
+  projectId   String
+  title       String
+  description String?
+  status      TaskStatus @default(TODO)
+  dueDate     DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  project     Project    @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, status])
 }
 
 model Store {
