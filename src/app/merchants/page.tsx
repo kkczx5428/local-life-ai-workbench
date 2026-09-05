@@ -7,6 +7,8 @@ import { DiagnosisButton } from "./DiagnosisButton";
 import { ProductPlanButton } from "./ProductPlanButton";
 import { DiagnosisHistory } from "./DiagnosisHistory";
 import { ProductPlanHistory } from "./ProductPlanHistory";
+import { listProductPlans } from "@/server/ai/product-plan";
+import { ProductPlanReview } from "./ProductPlanReview";
 
 export default async function MerchantsPage() {
   const merchants = await listMerchants(demoOrganizationId);
@@ -50,6 +52,7 @@ export default async function MerchantsPage() {
                 <DiagnosisHistory merchantId={merchant.id} />
                 <ProductPlanButton merchantId={merchant.id} />
                 <ProductPlanHistory merchantId={merchant.id} />
+                <ProductPlanReview plans={await listProductPlans(merchant.id)} />
                 {merchant.projects.length > 0 && <div className="mt-5 border-t border-slate-100 pt-5"><p className="text-xs font-medium text-slate-500">运营项目</p>{merchant.projects.map((project) => <a href={`/projects/${project.id}`} key={project.id} className="mt-2 flex items-center justify-between rounded-lg bg-violet-50 px-3 py-2 text-sm hover:bg-violet-100"><span>{project.name}</span><span className="text-xs text-violet-700">查看详情 →</span></a>)}</div>}
               </article>
             ))}
