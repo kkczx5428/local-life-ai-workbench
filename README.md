@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 本地生活团购 AI 工作台
 
-## Getting Started
+面向本地生活代运营公司、团购服务商和探店机构的开源 AI 工作台。
 
-First, run the development server:
+> 商家资料 → AI 商家诊断 → 团购方案 → 内容协作 → 数据复盘
+
+## 当前状态
+
+项目正在开发中，当前已完成产品设计文档和 Next.js 项目基础骨架。
+
+## 计划功能
+
+- 服务商组织、成员、客户商家和项目管理
+- 商家与门店档案及 Excel/CSV 导入
+- AI 商家诊断与团购商品方案
+- 短视频脚本、口播、分镜和发布排期
+- 素材库、团队审核、评论、版本和任务协作
+- 团购销量、核销、退款和内容表现复盘
+- 七牛云 Kodo 与阿里云 OSS 对象存储
+- 可替换的 AI Provider 和平台适配器
+
+## 技术栈
+
+Next.js、TypeScript、PostgreSQL、Prisma、Tailwind CSS、Docker Compose。
+
+## 本地运行
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+打开 [http://localhost:3000](http://localhost:3000) 查看应用。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 开发文档
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- [产品设计](docs/superpowers/specs/2026-09-05-local-life-ai-workbench-design.md)
+- [V0.1 实现计划](docs/superpowers/plans/2026-09-05-v01-foundation.md)
 
-## Learn More
+## 参与贡献
 
-To learn more about Next.js, take a look at the following resources:
+项目仍处于早期开发阶段，欢迎提交 Issue、功能建议和 Pull Request。
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 许可证
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+许可证方案尚在确认中。正式发布前会在仓库根目录补充完整许可证文件。
