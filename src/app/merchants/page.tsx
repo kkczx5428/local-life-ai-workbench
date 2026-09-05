@@ -12,7 +12,7 @@ import { ProductPlanReview } from "./ProductPlanReview";
 
 export default async function MerchantsPage() {
   const merchants = await listMerchants(demoOrganizationId);
-  const plansByMerchant = new Map(await Promise.all(merchants.map(async (merchant) => [merchant.id, await listProductPlans(merchant.id)] as const)));
+  const plansByMerchant = new Map(await Promise.all(merchants.map(async (merchant) => [merchant.id, (await listProductPlans(merchant.id)).map((plan) => ({ ...plan, dealPrice: plan.dealPrice?.toString() || null }))] as const)));
 
   return (
     <main className="min-h-screen bg-slate-100 px-6 py-12 text-slate-950">
