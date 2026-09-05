@@ -2,8 +2,7 @@ import { listMerchants } from "@/server/merchant/service";
 import { MerchantForm } from "./MerchantForm";
 import { StoreForm } from "./StoreForm";
 import { ProjectForm } from "./ProjectForm";
-
-const demoOrganizationId = "cmto2ij4y0001ut0k5wqw06xw";
+import { demoOrganizationId } from "@/lib/demo-context";
 
 export default async function MerchantsPage() {
   const merchants = await listMerchants(demoOrganizationId);
