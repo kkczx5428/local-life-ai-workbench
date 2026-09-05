@@ -34,6 +34,8 @@ npm run dev
 
 导入商家资料：打开 `/imports/merchants`，上传 CSV 或 Excel 文件进行解析预览。
 
+配置 `AI_BASE_URL`、`AI_API_KEY` 和 `AI_MODEL` 后，诊断接口会调用 OpenAI-compatible 模型；未配置时使用本地确定性演示 Provider。
+
 ## 开发文档
 
 - [产品设计](docs/superpowers/specs/2026-09-05-local-life-ai-workbench-design.md)

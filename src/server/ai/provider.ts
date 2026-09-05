@@ -9,4 +9,20 @@ export class DeterministicAiProvider implements AiProvider {
   }
 }
 
-export function getAiProvider(): AiProvider { return new DeterministicAiProvider(); }
+export class OpenAiCompatibleProvider implements AiProvider {
+  constructor(private readonly baseUrl: string, private readonly apiKey: string, private readonly model: string) {}
+  async diagnose(input: { name: string; category?: string | null; description?: string | null }): Promise<DiagnosisResult> {
+    const response = await fetch(`${this.baseUrl.replace(/\/$/, "")}/chat/completions`, { method: "POST", headers: { "content-type": "application/json", authorization: `Bearer ${this.apiKey}` }, body: JSON.stringify({ model: this.model, temperature: 0.2, messages: [{ role: "system", content: "你是本地生活团购运营顾问。只返回严格 JSON，字段为 positioning(string), targetAudience(string[]), productDirections(string[]), priceAdvice(string), sellingPoints(string[]), risks(string[]), actions(string[])." }, { role: "user", content: JSON.stringify(input) }] }), signal: AbortSignal.timeout(30000) });
+    if (!response.ok) throw new Error(`AI 服务请求失败（HTTP ${response.status}）`);
+    const payload = await response.json() as { choices?: { message?: { content?: string } }[] };
+    const content = payload.choices?.[0]?.message?.content;
+    if (!content) throw new Error("AI 服务返回内容为空");
+    try { return JSON.parse(content.replace(/^```json\s*|\s*```$/g, "")) as DiagnosisResult; }
+    catch { throw new Error("AI 服务返回的诊断结果不是有效 JSON"); }
+  }
+}
+
+export function getAiProvider(): AiProvider {
+  if (process.env.AI_BASE_URL && process.env.AI_API_KEY && process.env.AI_MODEL) return new OpenAiCompatibleProvider(process.env.AI_BASE_URL, process.env.AI_API_KEY, process.env.AI_MODEL);
+  return new DeterministicAiProvider();
+}
