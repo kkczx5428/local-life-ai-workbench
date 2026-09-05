@@ -10,3 +10,7 @@ export async function generateProductPlans(merchantId: string) {
   ];
   return prisma.$transaction(plans.map((plan) => prisma.productPlan.create({ data: { merchantId, ...plan } })));
 }
+
+export async function listProductPlans(merchantId: string) {
+  return prisma.productPlan.findMany({ where: { merchantId }, orderBy: { createdAt: "desc" } });
+}
