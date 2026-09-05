@@ -1,4 +1,5 @@
 import { listMerchants } from "@/server/merchant/service";
+import { MerchantForm } from "./MerchantForm";
 
 const demoOrganizationId = "cmto2ij4y0001ut0k5wqw06xw";
 
@@ -15,6 +16,7 @@ export default async function MerchantsPage() {
           </div>
           <span className="rounded-full bg-white px-4 py-2 text-sm text-slate-600 shadow-sm">{merchants.length} 家商家</span>
         </div>
+        <MerchantForm />
         {merchants.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center text-slate-500">暂无商家，请通过 API 创建第一家商家。</div>
         ) : (
