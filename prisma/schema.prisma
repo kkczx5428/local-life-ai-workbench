@@ -42,8 +42,21 @@ model Merchant {
   organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   stores         Store[]
   projects       Project[]
+  diagnoses      MerchantDiagnosis[]
 
   @@index([organizationId])
+}
+
+model MerchantDiagnosis {
+  id         String   @id @default(cuid())
+  merchantId String
+  version    Int
+  result     Json
+  createdAt  DateTime @default(now())
+  merchant   Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+
+  @@unique([merchantId, version])
+  @@index([merchantId, createdAt])
 }
 
 enum ProjectStatus {
