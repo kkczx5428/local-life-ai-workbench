@@ -28,6 +28,34 @@ model Organization {
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
   memberships Membership[]
+  merchants   Merchant[]
+}
+
+model Merchant {
+  id             String       @id @default(cuid())
+  organizationId String
+  name           String
+  category       String?
+  description    String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  stores         Store[]
+
+  @@index([organizationId])
+}
+
+model Store {
+  id         String   @id @default(cuid())
+  merchantId String
+  name       String
+  address    String?
+  phone      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  merchant   Merchant @relation(fields: [merchantId], references: [id], onDelete: Cascade)
+
+  @@index([merchantId])
 }
 
 model Membership {
