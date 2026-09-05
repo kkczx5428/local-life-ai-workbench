@@ -1,5 +1,6 @@
 import { listMerchants } from "@/server/merchant/service";
 import { MerchantForm } from "./MerchantForm";
+import { StoreForm } from "./StoreForm";
 
 const demoOrganizationId = "cmto2ij4y0001ut0k5wqw06xw";
 
@@ -31,6 +32,15 @@ export default async function MerchantsPage() {
                   <span className="rounded-full bg-cyan-50 px-3 py-1 text-xs text-cyan-700">{merchant.stores.length} 家门店</span>
                 </div>
                 {merchant.description && <p className="mt-5 text-sm leading-6 text-slate-600">{merchant.description}</p>}
+                <div className="mt-5 space-y-2">
+                  {merchant.stores.map((store) => (
+                    <div key={store.id} className="rounded-lg bg-slate-50 px-3 py-2 text-sm">
+                      <p className="font-medium">{store.name}</p>
+                      <p className="mt-1 text-xs text-slate-500">{store.address || "未填写地址"}{store.phone ? ` · ${store.phone}` : ""}</p>
+                    </div>
+                  ))}
+                </div>
+                <StoreForm merchantId={merchant.id} />
               </article>
             ))}
           </div>
